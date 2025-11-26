@@ -3,7 +3,7 @@ variable "instance_name" {
 }
 
 variable "key_name" {
-  default = "aws-key"                  # Names of key in aws
+  default = "hotstar-key"                  # Names of key in aws
 }
 
 
