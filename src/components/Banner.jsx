@@ -1,6 +1,7 @@
 import React from 'react'
 import './Banner.css'
 import  { useEffect, useState } from 'react'
+import hotstarBanner from '../images/hotstarBanner.jpg'
 
 
 function Banner() {
@@ -21,7 +22,7 @@ function Banner() {
 
     <div className='bbc'>
         <div className='st'>
-          <img src="https://img10.hotstar.com/image/upload/f_auto,q_90,w_1920/sources/r1/cms/prod/2448/1602448-i-fbe90a6f290a" alt="" />
+          <img src={hotstarBanner} alt="Hotstar Banner" />
           </div>
        
         

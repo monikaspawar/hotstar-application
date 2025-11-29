@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Platforms from './components/Platforms';
 import Row from './components/Row';
 import requests from './request';
+import bannerLogo from './images/bannerLogo.jpg';
 
 function App() {
   return (
@@ -32,10 +33,10 @@ function App() {
      <Banner/>
     </div>
     <div className='lg'>
-    <img src="https://img10.hotstar.com/image/upload/f_auto,h_148/sources/r1/cms/prod/2744/1602744-t-f24fc98823fa" alt="" />
-            <h3>2023 . 2h 54m . 4 languages . <span>U/A 16+</span> </h3>
-            <p>In a crime-infested town, Kannan bhai and his gang are the reigning powers. To combat this reign and seek revenge, Inspector </p>
-            <h3>Action | Drama | Thriller | Drugs</h3>
+    <img src={bannerLogo} alt="Banner Logo" />
+            <h3>2025 . 2h 13m . 4 languages . <span>U/A 16+</span> </h3>
+            <p>A new era is born in the iconic Jurassic World series as a covert extraction team makes a dangerous discovery on a hidden island of deadly dinosaurs </p>
+            <h3>Action | Adventure | Science Fiction | Thriller </h3>
             <button className='btn'>Subscribe to Watch</button>
             <button className='bb btn'>+</button>
   

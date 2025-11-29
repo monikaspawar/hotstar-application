@@ -52,10 +52,10 @@ pipeline{
         stage("Docker Build & Push"){
             steps{
                 script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker', url: 'https://index.docker.io/v1/'){   
                        sh "docker build -t hotstar ."
-                       sh "docker tag hotstar monikasapawar/hotstar:latest "
-                       sh "docker push monikasapawar/hotstar:latest "
+                       sh "docker tag hotstar monikasapawar/hotstar:latest"
+                       sh "docker push monikasapawar/hotstar:latest"
                     }
                 }
             }
