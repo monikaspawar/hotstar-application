@@ -1,5 +1,5 @@
 variable "instance_name" {
-    default = "Monitoring_server"  # Names of the instance
+    default = "Infra-server"  # Names of the instance
 }
 
 variable "key_name" {
