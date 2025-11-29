@@ -67,7 +67,15 @@ pipeline{
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name hotstar -p 3000:3000 monikasapawar/hotstar:latest'
+                script {
+                    // Check if container exists and remove it
+                    sh 'docker stop hotstar || true'
+                    sh 'docker rm hotstar || true'
+                    
+                    // Pull latest image and run new container
+                    sh 'docker pull monikasapawar/hotstar:latest'
+                    sh 'docker run -d --name hotstar -p 3000:3000 monikasapawar/hotstar:latest'
+                }
             }
         }
     }
