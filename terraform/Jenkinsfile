@@ -25,7 +25,7 @@ pipeline {
 
         stage('Terraform init') {
             steps {
-                dir('Terraform') {
+                dir('terraform') {
                     sh '''
                     terraform init \
                     -backend-config="access_key=$AWS_ACCESS_KEY_ID" \
@@ -37,7 +37,7 @@ pipeline {
 
         stage('Terraform validate') {
             steps {
-                dir('Terraform') {
+                dir('terraform') {
                     sh 'terraform validate'
                 }
             }
@@ -45,7 +45,7 @@ pipeline {
 
         stage('Terraform plan') {
             steps {
-                dir('Terraform') {
+                dir('terraform') {
                     sh '''
                     terraform plan \
                     -var="access_key=$AWS_ACCESS_KEY_ID" \
@@ -57,7 +57,7 @@ pipeline {
 
         stage('Terraform apply/destroy') {
             steps {
-                dir('Terraform') {
+                dir('terraform') {
                     sh '''
                     terraform ${action} --auto-approve \
                     -var="access_key=$AWS_ACCESS_KEY_ID" \
