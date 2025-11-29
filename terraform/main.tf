@@ -36,11 +36,11 @@ resource "aws_security_group" "ec2_security_group" {
   }
 
   tags = {
-    Name = "Monitoring server security group"
+    Name = "Infra server security group"
   }
 }
 
-resource "aws_instance" "Monitoring_server" {
+resource "aws_instance" "Infra-server" {
 ami = "ami-00bb6a80f01f03502"  
 instance_type = "t2.medium"
 security_groups = [aws_security_group.ec2_security_group.name]
