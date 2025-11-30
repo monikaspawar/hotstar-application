@@ -46,7 +46,7 @@ pipeline{
         }
             stage('TRIVY FS SCAN') {
             steps {
-                sh "trivy fs . > trivyfs.txt"
+                sh "trivy fs --format table . > trivyfs.txt"
             }
         }
         stage("Docker Build & Push"){
@@ -62,7 +62,7 @@ pipeline{
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image monikasapawar/hotstar:latest > trivyimage.txt" 
+                sh "trivy image --format table monikasapawar/hotstar:latest > trivyimage.txt" 
             }
         }
         stage('Deploy to container'){
