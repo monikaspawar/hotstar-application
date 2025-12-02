@@ -78,15 +78,7 @@ pipeline{
                 }
             }
         }
-        stage('Deploy to Kubernetes'){
-            steps{
-                script {
-                    // Update Kubernetes deployment with latest image
-                    sh 'kubectl set image deployment/hotstar-deployment hotstar-container=monikasapawar/hotstar:latest'
-                    sh 'kubectl rollout status deployment/hotstar-deployment'
-                }
-            }
-        }
+
     }
 }
 
