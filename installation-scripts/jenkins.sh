@@ -1,5 +1,4 @@
 #!/bin/bash
-#this Script belong to Cloudaseem Youtube channel #####
 # jenkins installation on ubuntu 
 sudo apt update -y
 sudo apt install fontconfig openjdk-17-jre -y
