@@ -1,86 +1,94 @@
-pipeline{
+pipeline {
     agent any
-    tools{
+
+    tools {
         jdk 'jdk'
         nodejs 'nodejs'
     }
+
     environment {
-        SCANNER_HOME=tool 'sonar-scanner'
+        SCANNER_HOME = tool 'sonar-scanner'
     }
+
     stages {
-        stage('clean workspace'){
-            steps{
+        stage('Clean Workspace') {
+            steps {
                 cleanWs()
             }
         }
-        stage('Checkout from Git'){
-            steps{
+
+        stage('Checkout from GitHub') {
+            steps {
                 git branch: 'main', url: 'https://github.com/monikaspawar/hotstar-application.git'
             }
         }
-        stage("Sonarqube Analysis "){
-            steps{
+
+        stage('SonarQube Analysis') {
+            steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Hotstar \
-                    -Dsonar.projectKey=Hotstar '''
+                    sh '''
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectName=Hotstar \
+                        -Dsonar.projectKey=Hotstar
+                    '''
                 }
             }
         }
-        stage("quality gate"){
-           steps {
+
+        stage('Quality Gate') {
+            steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
                 }
-            } 
+            }
         }
+
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
             }
         }
-        stage('OWASP FS SCAN') {
+
+        stage('OWASP FS Scan') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP'
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit --disableOssIndex', odcInstallation: 'DP'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-            stage('TRIVY FS SCAN') {
+
+        stage('Trivy FS Scan') {
             steps {
-                sh "trivy fs --format table . > trivyfs.txt"
+                sh 'trivy fs --format sarif . > trivyfs.sarif'
             }
         }
-        stage("Docker Build & Push"){
-            steps{
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker', url: 'https://index.docker.io/v1/'){   
-                       sh "docker build -t hotstar ."
-                       sh "docker tag hotstar monikasapawar/hotstar:latest"
-                       sh "docker push monikasapawar/hotstar:latest"
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker', url: 'https://index.docker.io/v1/') {
+                        sh "docker build -t hotstar ."
+                        sh "docker tag hotstar monikasapawar/hotstar:latest"
+                        sh "docker push monikasapawar/hotstar:latest"
                     }
                 }
             }
         }
-        stage("TRIVY"){
-            steps{
-                sh "trivy image --format table monikasapawar/hotstar:latest > trivyimage.txt" 
+
+        stage('Trivy Image Scan') {
+            steps {
+                sh 'trivy image --format sarif monikasapawar/hotstar:latest > trivyimage.sarif'
             }
         }
-        stage('Deploy to container'){
-            steps{
+
+        stage('Deploy Container') {
+            steps {
                 script {
-                    // Check if container exists and remove it
                     sh 'docker stop hotstar || true'
                     sh 'docker rm hotstar || true'
-                    
-                    // Pull latest image and run new container
                     sh 'docker pull monikasapawar/hotstar:latest'
                     sh 'docker run -d --name hotstar -p 3000:3000 monikasapawar/hotstar:latest'
                 }
             }
         }
-
     }
 }
-
-
-
