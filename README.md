@@ -1,2 +1,1 @@
-## 
-Extract this file before you using
+hotstar application deploy on aws
