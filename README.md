@@ -453,26 +453,3 @@ kubectl describe svc hotstar-service
 # Check image availability
 docker pull monikasapawar/hotstar:latest
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/new-feature`)
-3. Commit changes (`git commit -am 'Add new feature'`)
-4. Push to branch (`git push origin feature/new-feature`)
-5. Create Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 📞 Support
-
-For issues and questions:
-- Create an issue in the GitHub repository
-- Check the troubleshooting section
-- Review Kubernetes logs for deployment issues
-
----
-
-**Note**: Ensure all AWS credentials and cluster configurations are properly set up before deployment.
