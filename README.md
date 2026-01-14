@@ -164,6 +164,9 @@ ServiceMonitor configured for Prometheus metrics collection on the Kubernetes cl
 4. Push to the branch
 5. Open a Pull Request
 
+## 📝 License
+
+This project is for educational purposes.
 
 ## 👥 Author
 
@@ -174,3 +177,14 @@ Monika Pawar
 - GitHub Repository: https://github.com/monikaspawar/hotstar-application.git
 - Docker Hub: monikasapawar/hotstar
 
+## 📞 Support
+
+For issues and questions, please open an issue in the GitHub repository.
+
+## 🔧 Troubleshooting
+
+**Image Pull Issues**:
+```bash
+# Check image availability
+docker pull monikasapawar/hotstar:latest
+```
