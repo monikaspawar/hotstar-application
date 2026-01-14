@@ -177,12 +177,6 @@ Monika Pawar
 - GitHub Repository: https://github.com/monikaspawar/hotstar-application.git
 - Docker Hub: monikasapawar/hotstar
 
-## 📞 Support
-
-For issues and questions, please open an issue in the GitHub repository.
-
-## 🔧 Troubleshooting
-
 **Image Pull Issues**:
 ```bash
 # Check image availability
